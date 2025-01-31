@@ -1,2 +1,2 @@
 # FinanceApp
-Spend wisely&amp;reach your goals
+Spend wisely and reach your goals
