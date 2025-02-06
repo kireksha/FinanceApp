@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter_18pt-Regular.woff2') format('woff2'),
+        url('./fonts/Inter_18pt-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter_18pt-Medium.woff2') format('woff2'),
+        url('./fonts/Inter_18pt-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter_18pt-Bold.woff2') format('woff2'),
+        url('./fonts/Inter_18pt-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter_18pt-Light.woff2') format('woff2'),
+        url('./fonts/Inter_18pt-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+:root {
+
+    --primary-color: #3a2e55;
+    /* Темно-фиолетовый, основной фон */
+    --secondary-color: #f4d5c2;
+    /* Светлый персиковый, фон карточек */
+    --accent-color: #eb9151;
+    /* Оранжевый, кнопки и акценты */
+    --secondary-accent-color: #6dbaee;
+    /* Голубой, второстепенные акценты */
+
+
+    --text-color: #ffffff;
+    --background-color: var(--primary-color);
+
+
+    --font-family: "Inter", sans-serif;
+}
+
+html {
+    font-size: 10px;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 2.4rem;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+
+button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s, visibility 0s;
+}
+
+button:hover {
+    background-color: var(--secondary-accent-color);
+}
+
+a {
+    color: var(--secondary-accent-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.button-primary {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.button-secondary {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.card {
+    background-color: var(--secondary-color);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,33 @@
+.categoryItem {
+    background-color: #3a2e55;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    width: 200px;
+}
+
+.categoryTitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.addButton {
+    background-color: #eb9151;
+    border: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.addButton:hover {
+    background-color: #6dbaee;
+}
+
+.addButton svg {
+    margin-right: 5px;
+}

@@ -1,0 +1,60 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modalTitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cancelButton,
+.saveButton {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.cancelButton {
+    background-color: #ddd;
+}
+
+.saveButton {
+    background-color: #eb9151;
+}
+
+.saveButton:hover {
+    background-color: #6dbaee;
+}
