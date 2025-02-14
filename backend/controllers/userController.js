@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
 
-const generateToken = (userId, res) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+const generateToken = (userId, login, res) => {
+  const token = jwt.sign({ userId, login }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 
@@ -21,22 +21,22 @@ const registerUser = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { email, password } = req.body;
+  const { login, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ login });
     if (existingUser) {
       return res
         .status(400)
-        .json({ message: "Пользователь с таким email уже существует" });
+        .json({ message: "Пользователь с таким login уже существует" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const newUser = new User({ email, password: hashedPassword });
+    const newUser = new User({ login, password: hashedPassword });
     await newUser.save();
 
-    generateToken(newUser._id, res);
+    generateToken(newUser._id, newUser.login, res);
 
     res.status(201).json({ message: "Регистрация успешна!" });
   } catch (error) {
@@ -49,10 +49,10 @@ const loginUser = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { email, password } = req.body;
+  const { login, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ login });
     if (!user) {
       return res.status(400).json({ message: "Пользователь не найден" });
     }
@@ -62,7 +62,7 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Неверный пароль" });
     }
 
-    generateToken(user._id, res);
+    generateToken(user._id, login, res);
 
     res.status(200).json({ message: "Вход успешен!" });
   } catch (error) {

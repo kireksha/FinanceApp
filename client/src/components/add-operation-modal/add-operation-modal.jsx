@@ -1,48 +1,113 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addIncome, addExpense, addAccount } from '../../redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    addIncome,
+    addExpense,
+    addAccount,
+    updateIncome,
+    updateAccount,
+    updateExpense,
+    removeIncome,
+    removeExpenses,
+    removeAccount
+} from '../../redux';
+import { INCOMES, EXPENSES, ACCOUNTS } from "../../constants";
 import style from './add-operation-modal.module.css';
 
-export const AddOperationModal = ({ onClose, category, type }) => {
-    const [amount, setAmount] = useState('');
-    const [description, setDescription] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState(category || "");
+export const AddOperationModal = ({ onClose, type, shouldDeleteOrUpdate, operationData }) => {
+    const [amount, setAmount] = useState(operationData.amount || "");
+    const [description, setDescription] = useState(operationData.description || "");
+    const [selectedCategory, setSelectedCategory] = useState(operationData.selectedCategory || "");
+    const [selectedAccount, setSelectedAccount] = useState(operationData.accountId || "");
+    const [isInitialCapital, setIsInitialCapital] = useState(operationData.isInitialCapital || false);
+
     const dispatch = useDispatch();
+    const accounts = useSelector((state) => state.accounts);
+
+    useEffect(() => {
+        setAmount(operationData?.amount || "");
+        setDescription(operationData?.description || "");
+        setSelectedCategory(operationData?.selectedCategory || "");
+        setSelectedAccount(operationData?.accountId || "");
+        setIsInitialCapital(operationData?.isInitialCapital || false)
+    }, [operationData]);
 
     const categories = type === "income"
-        ? [
-            "Зарплата", "Премия", "Фриланс", "Доход от бизнеса", "Пассивный доход",
-            "Аренда", "Проценты по вкладам", "Дивиденды", "Социальные выплаты",
-            "Подарки и переводы", "Кэшбэк и бонусы", "Продажа вещей", "Возврат налогов", "Прочие доходы"
-        ]
+        ? INCOMES
         : type === "expense"
-            ? [
-                "Продукты питания", "Транспорт", "Жилищные расходы", "Связь", "Развлечения",
-                "Одежда и обувь", "Медицина", "Образование", "Спортивные занятия",
-                "Подарки и благотворительность", "Кредиты и займы", "Домашние животные", "Автозатраты", "Прочие расходы"
-            ]
-            : [
-                "Счет для расчетов", "Счет для сбережений", "Долг", "Депозитный счет",
-                "Счет для инвестиций", "Кредитная карта", "Платежи и переводы",
-                "Блокировка средств", "Иностранный счет", "Прочие счета"
-            ];
+            ? EXPENSES
+            : ACCOUNTS;
 
     const handleSubmit = () => {
-        const transactionData = { amount, description, selectedCategory, type };
+        const accountId = selectedAccount || "others";
+        const transactionData = {
+            id: Date.now(),
+            amount,
+            description,
+            selectedCategory: selectedCategory || categories.at(-1).category,
+            type,
+            accountId,
+        };
+
         if (type === 'income') {
             dispatch(addIncome(transactionData));
         } else if (type === 'expense') {
             dispatch(addExpense(transactionData));
         } else if (type === 'account') {
-            dispatch(addAccount(transactionData));
+            const accountData = {
+                id: Date.now(),
+                selectedCategory: selectedCategory || "Новый счет", // обязательно задаём имя счета
+                amount: Number(amount),
+                isInitialCapital,
+                description // если нужно
+            };
+            dispatch(addAccount(accountData));
         }
         onClose();
     };
 
+    const handleDelete = () => {
+        switch (type) {
+            case "income":
+                dispatch(removeIncome(operationData.id));
+                break;
+            case "expense":
+                dispatch(removeExpenses(operationData.id));
+                break;
+            case "account":
+                dispatch(removeAccount(operationData.id));
+                break;
+            default:
+                return;
+        }
+
+        onClose();
+    }
+
+    const handleUpdate = () => {
+        const updatedData = {
+            amount,
+            description,
+            selectedCategory: selectedCategory || categories.at(-1).category,
+            type,
+            accountId: selectedAccount || "others",
+            ...(type === "account" && { isInitialCapital })
+        };
+
+        if (type === 'income') {
+            dispatch(updateIncome({ id: operationData.id, updatedData }));
+        } else if (type === 'expense') {
+            dispatch(updateExpense({ id: operationData.id, updatedData }));
+        } else if (type === 'account') {
+            dispatch(updateAccount({ id: operationData.id, updatedData }));
+        }
+        onClose();
+    }
+
     return (
         <div className={style.modalOverlay}>
             <div className={style.modal}>
-                <h3 className={style.modalTitle}>Добавить операцию</h3>
+                <h3 className={style.modalTitle}>{shouldDeleteOrUpdate ? "Редактировать операцию" : "Добавить операцию"}</h3>
                 <input
                     type="number"
                     placeholder="Сумма"
@@ -58,18 +123,50 @@ export const AddOperationModal = ({ onClose, category, type }) => {
                     className={style.input}
                 />
                 <select
-                    value={selectedCategory}
+                    value={selectedCategory || categories.at(-1).category}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     className={style.input}
                 >
-                    <option value="">Выберите категорию</option>
                     {categories.map((cat) => (
-                        <option key={cat} value={cat}>{cat}</option>
+                        <option key={cat.id} value={cat.category}>{cat.category}</option>
                     ))}
                 </select>
+
+                {(type === "income" || type === "expense") && (
+                    <div className={style.inputContainer}>
+                        <label className={style.inputLabel}>
+                            {type === "income" ? "На какой счет зачислить:" : "С какого счета списать:"}
+                        </label>
+                        <select
+                            value={selectedAccount}
+                            onChange={(e) => setSelectedAccount(e.target.value)}
+                            className={style.input}
+                        >
+                            <option value="">Прочие счета</option>
+                            {accounts.map((acc) => (
+                                <option key={acc.id} value={acc.id}>
+                                    {acc.selectedCategory}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
+
+                {type === "account" && (
+                    <label className={style.checkboxLabel}>
+                        <input
+                            type="checkbox"
+                            checked={isInitialCapital}
+                            onChange={(e) => setIsInitialCapital(e.target.checked)}
+                        />
+                        Стартовый капитал
+                    </label>
+                )}
+
                 <div className={style.modalActions}>
                     <button className={style.cancelButton} onClick={onClose}>Отмена</button>
-                    <button className={style.saveButton} onClick={handleSubmit}>Сохранить</button>
+                    <button className={style.saveButton} onClick={shouldDeleteOrUpdate ? handleUpdate : handleSubmit}>Сохранить</button>
+                    {shouldDeleteOrUpdate && <button className={style.deleteButton} onClick={handleDelete}>Удалить</button>}
                 </div>
             </div>
         </div>

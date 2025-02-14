@@ -71,6 +71,13 @@ export const incomesSlice = createSlice({
     removeIncome: (state, action) => {
       state.list = state.list.filter((income) => income.id !== action.payload);
     },
+    updateIncome: (state, action) => {
+      const { id, updatedData } = action.payload;
+      const index = state.list.findIndex((income) => income.id === id);
+      if (index !== -1) {
+        state.list[index] = { ...state.list[index], ...updatedData };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -103,6 +110,7 @@ export const incomesSlice = createSlice({
   },
 });
 
-export const { setIncomes, addIncome, removeIncome } = incomesSlice.actions;
+export const { setIncomes, addIncome, removeIncome, updateIncome } =
+  incomesSlice.actions;
 
 export const incomesReducer = incomesSlice.reducer;

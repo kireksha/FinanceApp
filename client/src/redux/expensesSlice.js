@@ -74,6 +74,13 @@ export const expensesSlice = createSlice({
         (expense) => expense.id !== action.payload
       );
     },
+    updateExpense: (state, action) => {
+      const { id, updatedData } = action.payload;
+      const index = state.list.findIndex((Expense) => Expense.id === id);
+      if (index !== -1) {
+        state.list[index] = { ...state.list[index], ...updatedData };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -106,7 +113,7 @@ export const expensesSlice = createSlice({
   },
 });
 
-export const { setExpenses, addExpense, removeExpenses } =
+export const { setExpenses, addExpense, removeExpenses, updateExpense } =
   expensesSlice.actions;
 
 export const expensesReducer = expensesSlice.reducer;

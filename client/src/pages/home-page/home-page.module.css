@@ -1,7 +1,6 @@
 .homePage {
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+    padding: 2rem;
+    background-color: var(--primary-color);
 }
 
 .loadingContainer {
@@ -32,17 +31,21 @@
 
 .welcomeSection {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 }
 
 .welcomeText {
-    font-size: 24px;
-    color: #333;
+    font-size: 2.4rem;
+    color: #fff;
+}
+
+.welcomeText span {
+    color: var(--accent-color);
 }
 
 .errorMessage {
     color: red;
-    font-size: 20px;
+    font-size: 2rem;
     text-align: center;
 }
 
@@ -52,24 +55,52 @@
     align-items: center;
 }
 
-.pageTitle {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.categoriesSection {
-    width: 100%;
-    max-width: 800px;
-    margin: 10px 0;
-}
-
 .categoriesSectionHeader {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    text-align: center;
+    width: 100%;
     cursor: pointer;
-    font-size: 20px;
-    padding: 10px 0;
+    font-size: 2rem;
+    padding: 1rem 0;
     border-bottom: 1px solid #ddd;
+    transition: border-color .2s ease-in-out;
+}
+
+.categoriesSectionHeader h2 {
+    margin: 0 1rem 0 0;
+    transition: color .2s ease-in-out;
+}
+
+.shevronIcon {
+    color: #fff;
+    transition: color .2s ease-in-out;
+}
+
+.categoriesSectionHeader:hover,
+.categoriesSectionHeader:hover .shevronIcon {
+    color: var(--accent-color);
+    border-color: var(--secondary-accent-color);
+}
+
+.categoriesList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-row-gap: 2rem;
+    grid-column-gap: 2rem;
+    align-items: stretch;
+    justify-items: stretch;
+}
+
+.categoriesList__addOperationBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.categoriesList__addOperationBtn button {
+    transform: translateY(-17px);
 }

@@ -7,7 +7,9 @@ const router = express.Router();
 router.post(
   "/register",
   [
-    check("email", "Некорректный email").isEmail(),
+    check("login", "Логин должен содержать минимум 5 символов").isLength({
+      min: 5,
+    }),
     check("password", "Пароль должен содержать минимум 6 символов").isLength({
       min: 6,
     }),
@@ -18,7 +20,9 @@ router.post(
 router.post(
   "/login",
   [
-    check("email", "Введите корректный email").isEmail(),
+    check("login", "Логин должен содержать минимум 5 символов").isLength({
+      min: 5,
+    }),
     check("password", "Введите пароль").not().isEmpty(),
   ],
   loginUser

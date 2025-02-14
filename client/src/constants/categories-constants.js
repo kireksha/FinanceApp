@@ -1,0 +1,50 @@
+export const INCOMES = [
+  { id: 1, category: "Зарплата", icon: "fa-money-bill-wave" },
+  { id: 2, category: "Премия", icon: "fa-solid fa-gift" },
+  { id: 3, category: "Фриланс", icon: "fa-solid fa-laptop" },
+  { id: 4, category: "Доход от бизнеса", icon: "fa-solid fa-briefcase" },
+  { id: 5, category: "Пассивный доход", icon: "fa-solid fa-coins" },
+  { id: 6, category: "Аренда", icon: "fa-solid fa-house" },
+  { id: 7, category: "Проценты по вкладам", icon: "fa-solid fa-percent" },
+  { id: 8, category: "Дивиденды", icon: "fa-solid fa-chart-line" },
+  { id: 9, category: "Социальные выплаты", icon: "fa-solid fa-users" },
+  { id: 10, category: "Подарки и переводы", icon: "fa-solid fa-gift" },
+  { id: 11, category: "Кэшбэк и бонусы", icon: "fa-solid fa-credit-card" },
+  { id: 12, category: "Продажа вещей", icon: "fa-solid fa-box-open" },
+  { id: 13, category: "Возврат налогов", icon: "fa-solid fa-money-check-alt" },
+  { id: 14, category: "Прочие доходы", icon: "fa-solid fa-ellipsis-h" },
+];
+
+export const EXPENSES = [
+  { id: 1, category: "Продукты питания", icon: "fa-solid fa-apple-alt" },
+  { id: 2, category: "Транспорт", icon: "fa-solid fa-car" },
+  { id: 3, category: "Жилищные расходы", icon: "fa-solid fa-home" },
+  { id: 4, category: "Связь", icon: "fa-solid fa-phone" },
+  { id: 5, category: "Развлечения", icon: "fa-solid fa-film" },
+  { id: 6, category: "Одежда и обувь", icon: "fa-solid fa-tshirt" },
+  { id: 7, category: "Медицина", icon: "fa-solid fa-heart" },
+  { id: 8, category: "Образование", icon: "fa-solid fa-graduation-cap" },
+  { id: 9, category: "Спортивные занятия", icon: "fa-solid fa-dumbbell" },
+  {
+    id: 10,
+    category: "Подарки и благотворительность",
+    icon: "fa-solid fa-gift",
+  },
+  { id: 11, category: "Кредиты и займы", icon: "fa-solid fa-credit-card" },
+  { id: 12, category: "Домашние животные", icon: "fa-solid fa-paw" },
+  { id: 13, category: "Автозатраты", icon: "fa-solid fa-gas-pump" },
+  { id: 14, category: "Прочие расходы", icon: "fa-solid fa-ellipsis-h" },
+];
+
+export const ACCOUNTS = [
+  { id: 1, category: "Счет для расчетов", icon: "fa-solid fa-credit-card" },
+  { id: 2, category: "Счет для сбережений", icon: "fa-solid fa-piggy-bank" },
+  { id: 3, category: "Долг", icon: "fa-solid fa-credit-card" },
+  { id: 4, category: "Депозитный счет", icon: "fa-solid fa-university" },
+  { id: 5, category: "Счет для инвестиций", icon: "fa-solid fa-chart-line" },
+  { id: 6, category: "Кредитная карта", icon: "fa-solid fa-credit-card" },
+  { id: 7, category: "Платежи и переводы", icon: "fa-solid fa-exchange-alt" },
+  { id: 8, category: "Блокировка средств", icon: "fa-solid fa-lock" },
+  { id: 9, category: "Иностранный счет", icon: "fa-solid fa-globe" },
+  { id: 10, category: "Прочие счета", icon: "fa-solid fa-wallet" },
+];

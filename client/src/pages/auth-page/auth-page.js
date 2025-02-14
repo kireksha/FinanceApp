@@ -30,8 +30,8 @@ export const AuthPage = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Неверный формат email")
+    login: Yup.string()
+      .min(5, "5 symbols minimum")
       .required("Email обязателен"),
     password: Yup.string()
       .min(6, "Пароль должен быть не менее 6 символов")
@@ -56,7 +56,7 @@ export const AuthPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: values.email,
+            login: values.login,
             password: values.password,
           }),
           credentials: "include",
@@ -68,7 +68,7 @@ export const AuthPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: values.email,
+            login: values.login,
             password: values.password,
           }),
           credentials: "include",
@@ -92,7 +92,7 @@ export const AuthPage = () => {
     <div className={style["auth-container"]}>
       <h1>{isLogin ? "Вход" : "Регистрация"}</h1>
       <Formik
-        initialValues={{ email: "", password: "", confirmPassword: "" }}
+        initialValues={{ login: "", password: "", confirmPassword: "" }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
@@ -105,13 +105,13 @@ export const AuthPage = () => {
             )}
             <div className={style["auth-form__form-group"]}>
               <Field
-                type="email"
-                name="email"
-                placeholder="Email"
+                type="text"
+                name="login"
+                placeholder="Login"
                 className={style["auth-form__input-field"]}
               />
               <ErrorMessage
-                name="email"
+                name="login"
                 component="div"
                 className={style["auth-form__error-message"]}
               />

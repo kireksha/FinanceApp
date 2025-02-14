@@ -1,0 +1,20 @@
+.addButton {
+    position: relative;
+    background-color: #eb9151;
+    border: none;
+    width: 5rem;
+    height: 5rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.addButton:hover {
+    background-color: #6dbaee;
+}
+
+.addButton i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
